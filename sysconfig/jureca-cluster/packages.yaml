@@ -14,6 +14,11 @@ packages:
             bison@3.0.4: /usr/local/software/jureca/Stages/2019a/software/Bison/3.3.2
         version: [3.0.4]
         buildable: False
+    boost:
+        paths:
+            boost@1.69.0: /usr/local/software/jureca/Stages/2019a/software/Boost/1.69.0-ipsmpi-2019a-Python-2.7.16
+        version: [1.69.0]
+        buildable: False
     cmake:
         paths:
             cmake@3.13.0: /usr/local/software/jureca/Stages/2019a/software/CMake/3.14.0-GCCcore-8.3.0
