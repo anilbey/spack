@@ -29,10 +29,8 @@ class Steps(CMakePackage):
     depends_on("lapack", when="+lapack")
     depends_on("lcov", when="+coverage", type="build")
     depends_on("mpi", when="+mpi")
-    depends_on("petsc~debug+int64+mpi~superlu-dist", when="+petsc+mpi+bundle")
-    depends_on("petsc~debug+int64~mpi~superlu-dist", when="+petsc~mpi+bundle")
-    depends_on("petsc~debug+int64+mpi+superlu-dist", when="+petsc+mpi~bundle")
-    depends_on("petsc~debug+int64~mpi+superlu-dist", when="+petsc~mpi~bundle")
+    depends_on("petsc~debug+int64+mpi", when="+petsc+mpi")
+    depends_on("petsc~debug+int64~mpi", when="+petsc~mpi")
     depends_on("py-cython")
     depends_on("py-gcovr", when="+coverage", type="build")
     depends_on("py-nose", type=("build", "test"))
@@ -49,7 +47,7 @@ class Steps(CMakePackage):
         spec = self.spec
 
         if "~bundle" in spec:
-            bundles = ["EASYLOGGINGPP", "RANDOM123", "SUNDIALS", "SUPERLU_DIST"]
+            bundles = ["EASYLOGGINGPP", "RANDOM123", "SUNDIALS"]
             for bundle in bundles:
                 args.append("-DUSE_BUNDLE_{}:BOOL=OFF".format(bundle))
 

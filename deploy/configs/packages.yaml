@@ -104,7 +104,7 @@ packages:
             perl@5.16.3: /usr
         version: [5.16.3]
     petsc:
-        variants: +patchmpi64
+        variants: +patchmpi64~superlu-dist
     pkg-config:
         paths:
             pkg-config@0.27.1: /usr
