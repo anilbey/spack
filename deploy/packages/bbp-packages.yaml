@@ -35,7 +35,7 @@ packages:
       - py-basalt@0.2.4
       - py-entity-management@1.0.16
       - py-jupyter-notebook@4.2.3
-      - brion@3.0.0 +python
+      - brion@3.0.0 +python ^boost@1.65.0
 
   gnu-stable-serial-ophiophob:
     target_matrix:
@@ -72,13 +72,14 @@ packages:
       - touchdetector@4.4.2
       - touchdetector@5.1.0
       - touchdetector@5.3.2
-      - brayns +opendeck +brion ^ospray@1.7.3
-      - brayns@1.0.1  +brion
+      - brayns +opendeck +brion ^ospray@1.7.3%intel
+      - brayns@1.0.1 +brion ^ospray%intel
       - brayns@immersive +opendeck +brion +optix
-      - brayns-graphs@0.1.0 ^brayns +brion
-      - brayns-topologyviewer@0.1.0 ^brayns@0.8.0 ^ospray@1.7.3
-      - brayns-brainatlas@0.1.0  ^brayns@0.8.0 ^ospray@1.7.3
-      - brayns-membranelessorganelles@0.1.0 ^brayns@0.8.0 ^ospray@1.7.3
+      - brayns-graphs@0.1.0 ^brayns +brion ^ospray%intel
+      - brayns-topologyviewer@0.1.0 ^brayns@0.8.0 ^ospray@1.7.3%intel
+      - brayns-brainatlas@0.1.0 ^brayns@0.8.0 ^ospray@1.7.3%intel
+      - brayns-membranelessorganelles@0.1.0 ^brayns@0.8.0 ^ospray@1.7.3%intel
+  
   gnu-stable-parallel-python:
     target_matrix:
       - gnu-stable
@@ -104,6 +105,7 @@ packages:
     specs:
       - steps@3.4.1+petsc
       - steps@3.5.0a+petsc
+      - nest@2.18.0
 
   gnu-stable-lapack-parallel:
     target_matrix:
