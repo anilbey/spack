@@ -124,7 +124,7 @@ class Neurodamus(NeurodamusBase):
         nrnivmodl = which('nrnivmodl')
         with profiling_wrapper_on():
             nrnivmodl('-incflags', include_flag, '-loadflags', link_flag, 'm')
-        special = os.path.join(os.path.basename(self.neuron_archdir), 'special')
+        special = os.path.join(os.path.basename(spec.neuron_archdir), 'special')
         assert os.path.isfile(special)
 
     def install(self, spec, prefix):
@@ -132,7 +132,7 @@ class Neurodamus(NeurodamusBase):
             Libs are sym-linked. Compiled libs into libs, special into bin
         """
         neurodamus_base = spec['neurodamus-base'].prefix
-        arch = os.path.basename(self.neuron_archdir)
+        arch = os.path.basename(spec.neuron_archdir)
         os.makedirs(prefix.lib.modc)
         os.makedirs(prefix.bin)
 

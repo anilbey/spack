@@ -67,7 +67,7 @@ class SimModel(Package):
             include_flag += " -I " + str(self.spec[dep].prefix.include)
 
         include_flag += ' -DENABLE_TAU_PROFILER' if '+profile' in self.spec else ''
-        output_dir = os.path.basename(self.neuron_archdir)
+        output_dir = os.path.basename(self.spec.neuron_archdir)
 
         if self.spec.satisfies('+coreneuron'):
             libnrncoremech = self.__build_mods_coreneuron(
@@ -98,7 +98,7 @@ class SimModel(Package):
         with working_dir('build_' + self.mech_name, create=True):
             force_symlink(mods_location, 'mod')
             which('nrnivmodl-core')(*nrnivmodl_params)
-            output_dir = os.path.basename(self.neuron_archdir)
+            output_dir = os.path.basename(self.spec.neuron_archdir)
             mechlib = find_libraries('libcorenrnmech' + self.lib_suffix + '*', output_dir)
             assert len(mechlib.names) == 1, 'Error creating corenrnmech. Found: ' + str(mechlib.names)
         return mechlib
@@ -122,7 +122,7 @@ class SimModel(Package):
     def _install_binaries(self, mech_name=None):
         # Install special
         mech_name = mech_name or self.mech_name
-        arch = os.path.basename(self.neuron_archdir)
+        arch = os.path.basename(self.spec.neuron_archdir)
         prefix = self.prefix
 
         if self.spec.satisfies('+coreneuron'):
@@ -157,7 +157,7 @@ class SimModel(Package):
     def _install_src(self, prefix):
         """Copy original and translated c mods
         """
-        arch = os.path.basename(self.neuron_archdir)
+        arch = os.path.basename(self.spec.neuron_archdir)
         mkdirp(prefix.lib.mod, prefix.lib.hoc, prefix.lib.python)
         copy_all('mod', prefix.lib.mod)
         copy_all('hoc', prefix.lib.hoc)
