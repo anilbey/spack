@@ -7,6 +7,10 @@ packages:
         paths:
             automake@1.15.1: /usr
         version: [1.15.1]
+    binutils:
+        paths:
+            binutils@2.30: /usr
+        version: [2.30]
     bison:
         paths:
             bison@3.0.4: /usr
@@ -35,6 +39,14 @@ packages:
         paths:
             flex@2.6.2: /usr
         version: [2.6.2]
+    freetype:
+        paths:
+            freetype@2.8.1: /usr
+        version: [2.8.1]
+    git:
+        paths:
+            git@2.17.1: /usr
+        version: [2.17.1]
     hdf5:
         paths:
             hdf5@1.10~mpi+hl: /usr/lib/x86_64-linux-gnu/hdf5/serial
@@ -43,6 +55,10 @@ packages:
     libpciaccess:
         paths:
             libpciaccess@0.14: /usr
+    libpng:
+        paths:
+            libpng@1.6.34: /usr
+        version: [1.6.34]
     libtool:
         paths:
             libtool@2.4.6: /usr
@@ -58,6 +74,10 @@ packages:
     mvapich2:
         variants: fabrics=nemesis
         version: [2.3]
+    nasm:
+        paths:
+            nasm@2.13.02: /usr
+        version: [2.13.02]
     ncurses:
         paths:
             ncurses@6.1: /usr
@@ -66,6 +86,10 @@ packages:
         paths:
             numactl@2.0.11: /usr
         version: [2.0.11]
+    openblas:
+        paths:
+            openblas@0.2.20: /usr
+        version: [0.2.20]
     openmpi:
         paths:
             openmpi@2.1.1: /usr
@@ -84,20 +108,34 @@ packages:
         version: [0.29.1]
     python:
         paths:
-            python@2.7.15: /usr
-        version: [2.7.15]
-    py-numpy:
-        paths:
-            py-numpy@1.13.3: /usr
-        version: [1.13.3]
+            python@3.6.9: /usr
+        version: [3.6.9]
+    range-v3:
+        variants: ~doc
     readline:
         paths:
             readline@7.0: /usr
         version: [7.0]
+    tar:
+        paths:
+            tar@1.32: /usr
+        version: [1.32]
     tcl:
         paths:
             tcl@8.6: /usr
         version: [8.6]
+    timemory:
+        variants: ~caliper~cuda~cupti~gperftools~papi~python~mpi
+    tk:
+        paths:
+            tk@8.6: /usr
+        version: [8.6]
+    trilinos:
+        variants: ~hypre
+    xz:
+        paths:
+            xz@5.2.4: /usr
+        version: [5.2.4]
     all:
         providers:
             mpi: [openmpi]

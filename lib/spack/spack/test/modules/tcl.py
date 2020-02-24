@@ -1,10 +1,10 @@
-# Copyright 2013-2018 Lawrence Livermore National Security, LLC and other
+# Copyright 2013-2019 Lawrence Livermore National Security, LLC and other
 # Spack Project Developers. See the top-level COPYRIGHT file for details.
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
-
 import pytest
+
 import spack.modules.common
 import spack.modules.tcl
 import spack.spec
@@ -112,7 +112,7 @@ class TestTcl(object):
         assert len([x for x in content if 'setenv MPILEAKS_ROOT' in x]) == 1
 
         content = modulefile_content(
-            'libdwarf %clang platform=test target=x86_32'
+            'libdwarf %clang platform=test target=x86'
         )
 
         assert len([x for x in content
@@ -151,7 +151,7 @@ class TestTcl(object):
 
         # Test we read the expected configuration for the naming scheme
         writer, _ = factory('mpileaks')
-        expected = '${PACKAGE}/${VERSION}-${COMPILERNAME}'
+        expected = '{name}/{version}-{compiler.name}'
 
         assert writer.conf.naming_scheme == expected
 
@@ -199,6 +199,7 @@ class TestTcl(object):
 
         w1, s1 = factory('mpileaks')
         w2, s2 = factory('callpath')
+        w3, s3 = factory('openblas')
 
         test_root = str(tmpdir_factory.mktemp('module-root'))
 
@@ -208,6 +209,22 @@ class TestTcl(object):
 
         assert index[s1.dag_hash()].use_name == w1.layout.use_name
         assert index[s2.dag_hash()].path == w2.layout.filename
+
+        spack.modules.common.generate_module_index(test_root, [w3])
+
+        index = spack.modules.common.read_module_index(test_root)
+
+        assert len(index) == 3
+        assert index[s1.dag_hash()].use_name == w1.layout.use_name
+        assert index[s2.dag_hash()].path == w2.layout.filename
+
+        spack.modules.common.generate_module_index(
+            test_root, [w3], overwrite=True)
+
+        index = spack.modules.common.read_module_index(test_root)
+
+        assert len(index) == 1
+        assert index[s3.dag_hash()].use_name == w3.layout.use_name
 
     def test_suffixes(self, module_configuration, factory):
         """Tests adding suffixes to module file name."""

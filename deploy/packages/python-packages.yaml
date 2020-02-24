@@ -11,30 +11,41 @@ combinations: !include packages/toolchains.yaml
 
 packages:
 
-  gnu-stable-serial:
+  gnu-stable-serial-py3-only:
     target_matrix:
       - gnu-stable
-      - gnu-stable-py2
     requires:
       - architecture
       - compiler
       - python
-    blacklist:
-      - 'py-bb5 ^python@2.7.15'
-      - 'py-mvdtool ^python@2.7.15'
-      - 'py-munkres ^python@2.7.15'
     specs:
+     - py-bb5
+     - py-mvdtool~mpi
+     - py-munkres
+
+  gnu-stable-serial:
+    target_matrix:
+      - gnu-stable
+    requires:
+      - architecture
+      - compiler
+      - python
+    specs:
+      - py-aspy-yaml
       - py-argcomplete
       - py-argparse
       - py-babel
-      - py-bb5
       - py-beautifulsoup4
       - py-breathe
       # - py-bokeh
       - py-cached-property
       - py-cffi
+      - py-cfgv
       - py-click
+      - py-cmake-format
       - py-clustershell
+      - py-configparser
+      - py-contextlib2
       - py-coverage
       - py-cpuinfo
       - py-cycler
@@ -52,27 +63,21 @@ packages:
       - py-funcsigs
       - py-future
       - py-futures
-      # - py-gcovr
       - py-h5py~mpi
       - py-hdfs
       - py-humanize
+      - py-identify
+      - py-importlib-metadata
+      - py-importlib-resources
       - py-ipykernel
       - py-ipyparallel
-      - py-ipython
-      - py-ipython-genutils
       - py-ipywidgets
-      - py-ipython
       - py-jinja2
       - py-jprops
-      # - py-jupyter-client
-      # - py-jupyter-console
-      # - py-jupyter-core
-      # - py-jupyter-notebook
       - py-lazy-property
       - py-line-profiler
       - py-lxml
       - py-markdown
-      - py-mvdtool
       # - py-memory-profiler
       # - py-mpmath
       # - py-multiprocess
@@ -80,18 +85,19 @@ packages:
       # - py-networkx
       # - py-nose
       - py-morphio
-      - py-munkres
       - py-neurom
+      - py-nodeenv
       - py-pandas
+      - py-pathlib2
       - py-perf
       - py-pillow
       - py-pip
       - py-plotly
       - py-ply
+      - py-pre-commit
       - py-progress
       - py-py4j
       - py-pyarrow+parquet
-      # - py-pynn
       - py-pylru
       - py-pyspark
       - py-pytest
@@ -101,19 +107,14 @@ packages:
       - py-seaborn
       - py-setuptools
       - py-setuptools-scm
-      # - py-sh
-      # - py-shapely
       - py-simplejson
       - py-six
-      # - py-slurm-pipeline
       - py-sparkmanager
       - py-sphinx
       # - py-sphinx-bootstrap-theme
       - py-sphinx-rtd-theme
-      # - py-sqlalchemy
-      # - py-symengine
       - py-sympy
-      # - py-toml
+      - py-toml
       # - py-tornado
       - py-urllib3
       - py-virtualenv
@@ -121,12 +122,12 @@ packages:
       - py-virtualenvwrapper
       - py-wheel
       # - py-yapf
+      - py-zipp
       # - py-zmq
 
   gnu-stable-serial-lapack:
     target_matrix:
       - gnu-stable
-      - gnu-stable-py2
     requires:
       - architecture
       - compiler
@@ -141,7 +142,7 @@ packages:
     # - py-scikit-learn@0.19.1 ^py-numpy@1.15.1 ^py-scipy@1.1.0
     # - py-theano@1.0.2 ^py-numpy@1.15.1 ^py-scipy@1.1.0
     # - py-pytorch@0.4.0 ^py-numpy@1.15.1
-    #
+
   intel-stable-serial-lapack:
     target_matrix:
       - intel-stable

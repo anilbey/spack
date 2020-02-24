@@ -14,39 +14,44 @@ class OmegaH(CMakePackage):
     """
 
     homepage = "https://github.com/SNLComputation/omega_h"
-    url      = "https://github.com/SNLComputation/omega_h/archive/v9.22.1.tar.gz"
-    git      = "https://github.com/SNLComputation/omega_h.git"
+    url      = "https://github.com/BlueBrain/omega_h/archive/v9.22.1.tar.gz"
+    git      = "https://github.com/BlueBrain/omega_h.git"
 
     version('develop', branch='master')
+    version('9.31.2.dev2', sha256='08be63b68a012ed8fcf4b7a217cbaadf46faa3f3c937ec8224ff9c542eb6ae62')
+    version('9.31.2', sha256='df859bc8ae0e4bcd9c4f6654b6951c7e34110ac3b3e7d2b0c1e413ce2645772d')
+    version('9.30.0', sha256='7160045ea12718269f345c7be93a386533ebb76788504df413f22fbcb072f158')
+    version('9.29.2', sha256='8eea6da0ebde44176a6d19fb858f89f872611cbad08cad65700757e096058465')
     version('9.29.0', sha256='b41964b018909ffe9cea91c23a0509b259bfbcf56874fcdf6bd9f6a179938014')
     version('9.28.0', sha256='681588974116025c6c1c535972386c23fe354502319fcbbbdc5b9d373429c08e')
     version('9.27.3', sha256='7c0b0c9c00cda97763be1287d3bf8b931bcdd07bf4971fc7258a3892d628cf20')
+    version('9.27.0', sha256='aa51f83508cbd14a41ae953bda7da98a6ad2979465c76e5b3a3d9a7a651cb34a')
     version('9.26.6', sha256='5022bf3f9be1a27668fd2ec396d66f6b0124dc4a3adeedb20a580a701d37d893')
     version('9.25.4', sha256='9a9b26d5c4fc352776c1da02d787e653b5878c0cca3890eefebd3df202c75aed')
     version('9.24.2', sha256='af084e56204262c2a7edcc9c88e997623fc1280ae59427b9bf2b57d11568b496')
     version('9.22.2', sha256='ab5636be9dc171a514a7015df472bd85ab86fa257806b41696170842eabea37d')
     version('9.21.1', sha256='750415614747681c0094d3103e7683c74edcd95819ef9477f2179c805c416cfa')
-    version('9.20.2', sha256='e1491969ccb170a92018a8b7d02f34b6177deffcbba74bc7c2ee862793a846c8')
-    version('9.19.1', sha256='60ef65c2957ce03ef9d1b995d842fb65c32c5659d064de002c071effe66b1b1f')
 
     variant('shared', default=True, description='Build shared libraries')
     variant('mpi', default=True, description='Activates MPI support')
     variant('zlib', default=True, description='Activates ZLib support')
     variant('trilinos', default=False, description='Use Teuchos and Kokkos')
-    variant('build_type', default='')
+    variant('build_type', default='RelWithDebugInfo')
     variant('throw', default=False, description='Errors throw exceptions instead of abort')
     variant('examples', default=False, description='Compile examples')
     variant('optimize', default=True, description='Compile C++ with optimization')
     variant('symbols', default=True, description='Compile C++ with debug symbols')
     variant('warnings', default=False, description='Compile C++ with warnings')
+    variant('gmsh', default=False, description='Use Gmsh C++ API')
 
     depends_on('gmsh', when='+examples', type='build')
+    depends_on('gmsh', when='+gmsh@4.4.1:', type='build')
     depends_on('mpi', when='+mpi')
     depends_on('trilinos +kokkos +teuchos', when='+trilinos')
     depends_on('zlib', when='+zlib')
 
     # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=86610
-    conflicts('%gcc@8:')
+    conflicts('%gcc@8:8.2.99', when='@:9.22.1')
 
     def _bob_options(self):
         cmake_var_prefix = 'Omega_h_CXX_'
@@ -71,6 +76,8 @@ class OmegaH(CMakePackage):
             args.append('-DOmega_h_USE_MPI:BOOL=OFF')
         if '+trilinos' in self.spec:
             args.append('-DOmega_h_USE_Trilinos:BOOL=ON')
+        if '+gmsh' in self.spec:
+            args.append('-DOmega_h_USE_Gmsh:BOOL=ON')
         if '+zlib' in self.spec:
             args.append('-DOmega_h_USE_ZLIB:BOOL=ON')
             args.append('-DZLIB_ROOT:PATH={0}'.format(
