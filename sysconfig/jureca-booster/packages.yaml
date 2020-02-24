@@ -110,7 +110,8 @@ packages:
     python:
         paths:
             python@2.7.15: /usr/local/software/jurecabooster/Stages/2019a/software/Python/2.7.16-GCCcore-8.3.0
-        version: [2.7.15]
+            python@3.6.8: /usr/local/software/jurecabooster/Stages/2019a/software/Python/3.6.8-GCCcore-8.3.0
+        version: [2.7.15, 3.6.8]
         buildable: False
     py-cython:
         paths:
