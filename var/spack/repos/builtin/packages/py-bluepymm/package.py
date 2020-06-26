@@ -27,6 +27,6 @@ class PyBluepymm(PythonPackage):
     depends_on('py-sh', type='run')
     depends_on('neuron', type='run')
 
-    def setup_environment(self, spack_env, run_env):
-        run_env.unset('PMI_RANK')
-        run_env.set('NEURON_INIT_MPI', "0")
+    def setup_run_environment(self, env):
+        env.unset('PMI_RANK')
+        env.set('NEURON_INIT_MPI', "0")
