@@ -4,6 +4,7 @@
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
 import os
+import subprocess
 import sys
 from spack import *
 from contextlib import contextmanager
@@ -126,7 +127,10 @@ class Neuron(CMakePackage):
                                                              "+coreneuron",
                                                              "+tests"]]
         if "+mpi" in self.spec:
+            args.append("-DNRN_ENABLE_MPI=ON")
             args.append("-DNRN_ENABLE_MPI_DYNAMIC=ON")
+        else:
+            args.append("-DNRN_ENABLE_MPI=OFF")
         if "+python" in self.spec:
             args.append("-DPYTHON_EXECUTABLE:FILEPATH="
                         + self.spec["python"].command.path)
@@ -365,7 +369,11 @@ class Neuron(CMakePackage):
         specific directory by looking for a specific binary.
         """
         if self.spec.satisfies("+cmake"):
-            neuron_arch = str(self.spec.architecture).split("-")[2]
+            # TODO : fix this when neuron provides an easy way to
+            # detect arch directory
+            neuron_arch = subprocess.Popen(["uname", "-p"],
+                                           stdout=subprocess.PIPE) \
+                .communicate()[0].decode('UTF-8').rstrip()
         else:
             file_list = find(self.prefix, "*/bin/nrniv_makefile")
             # check needed as when initially evaluated the prefix is empty

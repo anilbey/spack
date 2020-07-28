@@ -19,13 +19,13 @@ class Nmodl(CMakePackage):
     version('0.2', tag='0.2', submodules=True)
 
     depends_on('bison@3.0:3.4.99', when='@:0.3', type='build')
-    depends_on('bison@3.0:', when='@0.3.1:', type='build')
+    depends_on('bison@3.0.5:', when='@0.3.1:', type='build')
     depends_on('cmake@3.3.0:', type='build')
     depends_on('flex@2.6:', type='build')
     depends_on('python@3.6.0:')
-    depends_on('py-jinja2@2.7:')
-    depends_on('py-pytest@3.0:')
-    depends_on('py-sympy@1.2:')
+    depends_on('py-jinja2@2.10:')
+    depends_on('py-pytest@4.0.0:')
+    depends_on('py-sympy@1.3:')
     depends_on('py-pyyaml@3.13:')
 
     def cmake_args(self):
@@ -39,7 +39,13 @@ class Nmodl(CMakePackage):
         return options
 
     def setup_build_environment(self, env):
-        env.prepend_path('PYTHONPATH', self.prefix.lib.python)
+        if '@:0.3b' in self.spec:
+            env.prepend_path('PYTHONPATH', self.prefix.lib.python)
+        else:
+            env.prepend_path('PYTHONPATH', self.prefix.lib)
 
     def setup_run_environment(self, env):
-        env.prepend_path('PYTHONPATH', self.prefix.lib.python)
+        if '@:0.3b' in self.spec:
+            env.prepend_path('PYTHONPATH', self.prefix.lib.python)
+        else:
+            env.prepend_path('PYTHONPATH', self.prefix.lib)

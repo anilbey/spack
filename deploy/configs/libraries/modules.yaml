@@ -34,11 +34,13 @@ modules:
       - neuron+mpi~debug%intel
       - omega-h
       - petsc
+      - py-dask-mpi
       - py-flake8
       - py-mpi4py
       - python-dev
       - py-h5py%gcc
       - py-numpy%gcc
+      - py-scikit-learn
       - py-virtualenv
       - 'tensorflow@1.12.0'
     blacklist:

@@ -20,7 +20,8 @@ class NeurodamusCore(SimModel):
     git      = "ssh://bbpcode.epfl.ch/sim/neurodamus-core"
 
     version('develop', branch='master', get_full_repo=False)
-    version('2.11.0', tag='2.11.0', get_full_repo=False, preferred=True)
+    version('2.11.1', tag='2.11.1', get_full_repo=False, preferred=True)
+    version('2.11.0', tag='2.11.0', get_full_repo=False)
     version('2.10.1', tag='2.10.1', get_full_repo=False)
     version('2.10.0', tag='2.10.0', get_full_repo=False)
     version('2.9.3', tag='2.9.3', get_full_repo=False)
@@ -69,7 +70,7 @@ class NeurodamusCore(SimModel):
     depends_on('python@2.7:', type=('build', 'run'))
 
     # Dont apply name for now for compat with neuron+binary
-    # mech_name = "neurodamus"
+    mech_name = ''
 
     @run_before('build')
     def prepare(self):
